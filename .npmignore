@@ -1,0 +1,32 @@
+# Source files
+src/
+tests/
+examples/
+docs/
+scripts/
+
+# Config files
+tsconfig.json
+tsup.config.ts
+vitest.config.ts
+.eslintrc.js
+.prettierrc
+
+# CI/CD
+.github/
+
+# Development files
+.env
+.env.example
+*.test.ts
+*.spec.ts
+coverage/
+
+# IDE
+.vscode/
+.idea/
+
+# Misc
+memory.md
+.git/
+.gitignore
