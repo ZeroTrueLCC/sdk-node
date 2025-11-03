@@ -34,10 +34,10 @@ jobs:
           PKG_VERSION=$(node -p "require('./package.json').version")
           TAG=${GITHUB_REF_NAME#v}
           [ "$PKG_VERSION" = "$TAG" ] || (echo "Version mismatch: $PKG_VERSION != $TAG" >&2; exit 1)
-      - name: Publish to npm (OIDC provenance)
+      - name: Publish to npm
         env:
-          NPM_CONFIG_PROVENANCE: true
-        run: npm publish --access public --provenance
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish --access public
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
