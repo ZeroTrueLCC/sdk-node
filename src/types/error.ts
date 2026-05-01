@@ -4,8 +4,9 @@
  */
 export interface ErrorResponse {
   error: {
-    code: string;
+    status_code: number;
     message: string;
+    code?: string;
   };
   request_id?: string;
 }

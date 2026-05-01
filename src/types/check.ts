@@ -111,11 +111,6 @@ export interface CheckResponse {
    * Current status of the check
    */
   status: CheckStatus;
-
-  /**
-   * When the check was created (ISO 8601 format)
-   */
-  created_at: string;
 }
 
 /**
@@ -142,12 +137,12 @@ export interface ContentSegment {
   /**
    * Label for the segment (e.g., 'aigen', 'human', 'deepfake', 'authentic')
    */
-  label: string;
+  label?: string;
 
   /**
    * Confidence percentage (0-100)
    */
-  confidence_pct: number;
+  confidence_pct?: number;
 
   /**
    * Start character position (for text/code)
@@ -191,17 +186,22 @@ export interface ContentSegment {
  */
 export interface CheckResult extends CheckResponse {
   /**
-   * AI probability (0-100)
+   * When the check was created (ISO 8601 format, from AnalysisResult)
+   */
+  created_at?: string;
+
+  /**
+   * AI probability (0-1)
    */
   ai_probability?: number;
 
   /**
-   * Human probability (0-100)
+   * Human probability (0-1)
    */
   human_probability?: number;
 
   /**
-   * Combined probability score (0-100)
+   * Combined probability score (0-1)
    */
   combined_probability?: number;
 

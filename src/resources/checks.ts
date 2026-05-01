@@ -2,8 +2,8 @@ import { HTTPClient } from '../core/http-client';
 import {
   CheckCreateParams,
   CheckCreateFromFileParams,
-  CheckResponse,
   CheckResult,
+  CheckStatus,
   WaitOptions,
 } from '../types';
 import { validateURL, validateFileExtension } from '../utils/validation';
@@ -35,7 +35,7 @@ export class Checks {
    * console.log(check.id); // Check ID
    * ```
    */
-  async create(params: CheckCreateParams): Promise<CheckResponse> {
+  async create(params: CheckCreateParams): Promise<CheckResult> {
     const { input, isPrivateScan = true, isDeepScan = false, idempotencyKey, metadata } = params;
 
     // Validate URL input
@@ -70,11 +70,17 @@ export class Checks {
       }
     });
 
-    return this.httpClient.post<CheckResponse>(endpoint, formData, {
+    const raw = await this.httpClient.post<{
+      id: string;
+      status: string;
+      error: null;
+      result?: Record<string, unknown>;
+    }>(endpoint, formData, {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
     });
+    return { id: raw.id, status: raw.status as CheckStatus, ...raw.result } as CheckResult;
   }
 
   /**
@@ -92,7 +98,7 @@ export class Checks {
   async createFromFile(
     filePath: string,
     options?: CheckCreateFromFileParams
-  ): Promise<CheckResponse> {
+  ): Promise<CheckResult> {
     const filename = filePath.split('/').pop() || 'file';
     validateFileExtension(filename);
     const buffer = await readFileToBuffer(filePath);
@@ -117,7 +123,7 @@ export class Checks {
     buffer: Buffer,
     filename: string,
     options?: CheckCreateFromFileParams
-  ): Promise<CheckResponse> {
+  ): Promise<CheckResult> {
     validateFileExtension(filename);
 
     const formData = createFormData(buffer, filename, {
@@ -128,9 +134,15 @@ export class Checks {
       metadata: options?.metadata ? JSON.stringify(options.metadata) : undefined,
     });
 
-    return this.httpClient.post<CheckResponse>('/api/v1/analyze/file', formData, {
+    const raw = await this.httpClient.post<{
+      id: string;
+      status: string;
+      error: null;
+      result?: Record<string, unknown>;
+    }>('/api/v1/analyze/file', formData, {
       headers: getHeaders(formData),
     });
+    return { id: raw.id, status: raw.status as CheckStatus, ...raw.result } as CheckResult;
   }
 
   /**
@@ -148,7 +160,13 @@ export class Checks {
    */
   async retrieve(checkId: string): Promise<CheckResult> {
     const apiKey = this.httpClient.getApiKey();
-    return this.httpClient.get<CheckResult>(`/api/v1/result/${checkId}?api_key=${apiKey}`);
+    const raw = await this.httpClient.get<{
+      id: string;
+      status: string;
+      error: null;
+      result?: Record<string, unknown>;
+    }>(`/api/v1/result/${checkId}?api_key=${apiKey}`);
+    return { id: raw.id, status: raw.status as CheckStatus, ...raw.result } as CheckResult;
   }
 
   /**
