@@ -3,7 +3,7 @@ import * as fs from 'fs';
 
 async function main() {
   const client = new ZeroTrue({
-    apiKey: process.env.ZEROTRUE_API_KEY!,
+    apiKey: 'zt_your_api_key_here',
   });
 
   try {

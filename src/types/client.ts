@@ -10,12 +10,6 @@ export interface ZeroTrueOptions {
   apiKey: string;
 
   /**
-   * Base URL for the ZeroTrue API
-   * @default 'https://app.zerotrue.app'
-   */
-  baseURL?: string;
-
-  /**
    * Request timeout in milliseconds
    * @default 30000
    */

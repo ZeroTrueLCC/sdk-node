@@ -2,7 +2,7 @@ import ZeroTrue, { ValidationError, AuthenticationError, RateLimitError, APIErro
 
 async function main() {
   const client = new ZeroTrue({
-    apiKey: process.env.ZEROTRUE_API_KEY!,
+    apiKey: 'zt_your_api_key_here',
   });
 
   // Example 1: Validation Error

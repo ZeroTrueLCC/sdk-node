@@ -30,7 +30,6 @@ describe('ZeroTrue Client', () => {
     it('should accept custom options', () => {
       const client = new ZeroTrue({
         apiKey: 'zt_test_key_12345',
-        baseURL: 'https://custom.api.com',
         timeout: 60000,
         maxRetries: 5,
         retryDelay: 2000,

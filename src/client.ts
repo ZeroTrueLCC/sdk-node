@@ -1,4 +1,5 @@
 import { HTTPClient } from './core/http-client';
+import { DEFAULT_API_BASE_URL } from './constants';
 import { Checks } from './resources/checks';
 import { ZeroTrueOptions } from './types';
 import { validateAPIKey } from './utils/validation';
@@ -12,7 +13,7 @@ import { validateAPIKey } from './utils/validation';
  * import ZeroTrue from 'zerotrue';
  *
  * const client = new ZeroTrue({
- *   apiKey: process.env.ZEROTRUE_API_KEY!
+ *   apiKey: 'zt_your_api_key_here'
  * });
  *
  * const check = await client.checks.create({
@@ -36,7 +37,6 @@ export class ZeroTrue {
   constructor(options: ZeroTrueOptions) {
     const {
       apiKey,
-      baseURL = 'https://app.zerotrue.app',
       timeout = 30000,
       maxRetries = 3,
       retryDelay = 1000,
@@ -49,7 +49,7 @@ export class ZeroTrue {
     // Create HTTP client
     this.httpClient = new HTTPClient({
       apiKey,
-      baseURL,
+      baseURL: DEFAULT_API_BASE_URL,
       timeout,
       maxRetries,
       retryDelay,

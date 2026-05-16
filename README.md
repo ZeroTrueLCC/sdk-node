@@ -40,7 +40,7 @@ pnpm add @zerotrue/sdk-node
 import ZeroTrue from '@zerotrue/sdk-node';
 
 const client = new ZeroTrue({
-  apiKey: process.env.ZEROTRUE_API_KEY!,
+  apiKey: 'zt_your_api_key_here',
 });
 
 // Check text for AI generation
@@ -62,7 +62,7 @@ const ZeroTrue = require('@zerotrue/sdk-node').default;
 const { ZeroTrue } = require('@zerotrue/sdk-node');
 
 const client = new ZeroTrue({
-  apiKey: process.env.ZEROTRUE_API_KEY,
+  apiKey: 'zt_your_api_key_here',
 });
 
 // Check text for AI generation
@@ -80,7 +80,6 @@ console.log('AI Probability:', result.ai_probability + '%');
 ```typescript
 const client = new ZeroTrue({
   apiKey: 'zt_your_api_key_here',
-  baseURL: 'https://app.zerotrue.app', // optional
   timeout: 30000, // 30 seconds (optional)
   maxRetries: 3, // retry failed requests (optional)
   retryDelay: 1000, // 1 second between retries (optional)
@@ -211,7 +210,6 @@ Creates a new ZeroTrue client.
 **Options:**
 
 - `apiKey` (string, required) - Your ZeroTrue API key
-- `baseURL` (string, optional) - API base URL (default: `https://app.zerotrue.app`)
 - `timeout` (number, optional) - Request timeout in ms (default: `30000`)
 - `maxRetries` (number, optional) - Max retry attempts (default: `3`)
 - `retryDelay` (number, optional) - Delay between retries in ms (default: `1000`)
@@ -331,13 +329,6 @@ The SDK automatically handles rate limits with retry logic.
 - **Videos:** mp4, mov, avi, mkv, webm
 - **Audio:** mp3, wav, ogg, flac
 - **Code:** py, js, ts, html, css, java, cpp, go, json, txt
-
-## Environment Variables
-
-```bash
-# .env
-ZEROTRUE_API_KEY=zt_your_api_key_here
-```
 
 ## Examples
 

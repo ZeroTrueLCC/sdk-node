@@ -17,7 +17,6 @@ vitest.config.ts
 
 # Development files
 .env
-.env.example
 *.test.ts
 *.spec.ts
 coverage/

@@ -4,7 +4,7 @@ const { ZeroTrue } = require('../dist/index.js');
 async function main() {
   // Initialize client
   const client = new ZeroTrue({
-    apiKey: process.env.ZEROTRUE_API_KEY,
+    apiKey: 'zt_your_api_key_here',
   });
 
   try {
