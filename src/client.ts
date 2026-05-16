@@ -35,13 +35,7 @@ export class ZeroTrue {
    * @param options - Client configuration options
    */
   constructor(options: ZeroTrueOptions) {
-    const {
-      apiKey,
-      timeout = 30000,
-      maxRetries = 3,
-      retryDelay = 1000,
-      debug = false,
-    } = options;
+    const { apiKey, timeout = 30000, maxRetries = 3, retryDelay = 1000, debug = false } = options;
 
     // Validate API key
     validateAPIKey(apiKey);
